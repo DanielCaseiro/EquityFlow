@@ -1,27 +1,40 @@
-import React from 'react'
-import './Card.css'
+import type { FormEvent } from "react";
+import { Link } from "react-router-dom";
+import "./Card.css";
+import type { CompanySearch } from "../../company";
+import AddPortfolio from "../Portfolio/AddPortfolio/AddPortfolio";
 
 interface Props {
-  companyName: string;
-  ticker: string;
-  price: number;
+  id: string;
+  searchResult: CompanySearch;
+  onPortfolioCreate: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-const Card = ({companyName, ticker, price}: Props) => {
+const Card = ({ id, searchResult, onPortfolioCreate }: Props) => {
   return (
-    <div className='card'>
-        <img src="https://testquality.com/wp-content/uploads/brizy/imgs/unnamed-2-787x449x0x0x787x448x1761773581.jpg" 
-        alt="Placeholder Image" />
+    <div
+      className="flex flex-col items-center justify-between w-full p-6 bg-slate-100 rounded-lg md:flex-row"
+      id={id}
+    >
+      <Link
+        to={`/company/${searchResult.symbol}/company-profile`}
+        className="font-bold text-center text-veryDarkViolet md:text-left"
+      >
+        {searchResult.name} ({searchResult.symbol})
+      </Link>
 
-      <div className="details">
-        <h2>{companyName} ({ticker})</h2>
-        <p> ${price.toFixed(2)}</p>
-      </div>
-        <p className='info'>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, animi!
-        </p>
+      <p className="text-veryDarkBlue">{searchResult.currency}</p>
+
+      <p className="font-bold text-veryDarkBlue">
+        {searchResult.exchangeShortName} - {searchResult.stockExchange}
+      </p>
+
+      <AddPortfolio
+        onPortfolioCreate={onPortfolioCreate}
+        symbol={searchResult.symbol}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

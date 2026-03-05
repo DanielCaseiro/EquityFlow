@@ -1,4 +1,4 @@
-import type { ChangeEvent, FormEvent} from "react";
+import type { ChangeEvent, FormEvent } from "react";
 
 interface Props {
   onSearchSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -6,22 +6,25 @@ interface Props {
   handleSearchChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Search = ({onSearchSubmit,
-  searchString,
-  handleSearchChange}: Props) => {
-
+const Search = ({ onSearchSubmit, searchString, handleSearchChange }: Props) => {
   return (
-    <div>
-
-        <form onSubmit={onSearchSubmit}>
-
-            <input value={searchString}
-            onChange={handleSearchChange} />
-
+    <section className="relative bg-gray-100">
+      <div className="max-w-4xl mx-auto p-6 space-y-6">
+        <form
+          className="form relative flex flex-col w-full p-10 space-y-4 bg-darkBlue rounded-lg md:flex-row md:space-y-0 md:space-x-3"
+          onSubmit={onSearchSubmit}
+        >
+          <input
+            className="flex-1 p-3 border-2 rounded-lg placeholder-black focus:outline-none"
+            id="search-input"
+            placeholder="Search companies"
+            value={searchString}
+            onChange={handleSearchChange}
+          />
         </form>
-    
-    </div>
-  )
-}
+      </div>
+    </section>
+  );
+};
 
-export default Search
+export default Search;
